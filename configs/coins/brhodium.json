@@ -1,0 +1,62 @@
+{
+  "coin": {
+      "name": "Bitcoin Rhodium",
+      "shortcut": "XRC",
+      "label": "Bitcoin Rhodium",
+      "alias": "bitcoinrhodium"
+  },
+  "ports": {
+    "backend_rpc": 19660,
+    "backend_message_queue": 45300,
+    "blockbook_internal": 50300,
+    "blockbook_public": 51300
+  },
+  "ipc": {
+    "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
+    "rpc_user": "rpc",
+    "rpc_pass": "rpc",
+    "rpc_timeout": 25,
+    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
+  },
+  "backend": {
+    "package_name": "backend-brhodium",
+    "package_revision": "satoshilabs-1",
+    "system_user": "brhodium",
+    "version": "1.1.4",
+    "binary_url": "https://bitcoin.org/bin/bitcoin-core-0.17.1/bitcoin-0.17.1-x86_64-linux-gnu.tar.gz",
+    "verification_type": "gpg-sha256",
+    "verification_source": "https://bitcoin.org/bin/bitcoin-core-0.17.1/SHA256SUMS.asc",
+    "extract_command": "tar -C backend --strip 1 -xf",
+    "exclude_files": [
+        "bin/bitcoin-qt"
+    ],
+    "exec_command_template": "{{.Env.BackendInstallPath}}/{{.Coin.Alias}}/bin/bitcoind -datadir={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend -conf={{.Env.BackendInstallPath}}/{{.Coin.Alias}}/{{.Coin.Alias}}.conf -pid=/run/{{.Coin.Alias}}/{{.Coin.Alias}}.pid",
+    "logrotate_files_template": "{{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend/*.log",
+    "postinst_script_template": "",
+    "service_type": "forking",
+    "service_additional_params_template": "",
+    "protect_memory": true,
+    "mainnet": true,
+    "server_config_file": "bitcoin_like.conf",
+    "client_config_file": "bitcoin_like_client.conf"
+  },
+  "blockbook": {
+    "package_name": "blockbook-brhodium",
+    "system_user": "blockbook-brhodium",
+    "internal_binding_template": ":{{.Ports.BlockbookInternal}}",
+    "public_binding_template": ":{{.Ports.BlockbookPublic}}",
+    "explorer_url": "",
+    "additional_params": "-dbcache=1073741824",
+    "block_chain": {
+      "parse": true,
+      "mempool_workers": 8,
+      "mempool_sub_workers": 2,
+      "block_addresses_to_keep": 300,
+      "additional_params": {}
+    }
+  },
+  "meta": {
+    "package_maintainer": "baff5b",
+    "package_maintainer_email": "dvbr3@protonmail.com"
+  }
+}

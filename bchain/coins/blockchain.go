@@ -5,6 +5,7 @@ import (
 	"blockbook/bchain/coins/bch"
 	"blockbook/bchain/coins/btc"
 	"blockbook/bchain/coins/btg"
+	"blockbook/bchain/coins/btr"
 	"blockbook/bchain/coins/dash"
 	"blockbook/bchain/coins/digibyte"
 	"blockbook/bchain/coins/dogecoin"
@@ -74,6 +75,8 @@ func init() {
 	BlockChainFactories["Zcoin"] = xzc.NewZcoinRPC
 	BlockChainFactories["Fujicoin"] = fujicoin.NewFujicoinRPC
 	BlockChainFactories["Flo"] = flo.NewFloRPC
+	BlockChainFactories["Bitcoin Rhodium"] = btr.NewBRhodiumRPC
+	BlockChainFactories["Bitcoin Rhodium Testnet"] = btr.NewBRhodiumRPC
 }
 
 // GetCoinNameFromConfig gets coin name and coin shortcut from config file
