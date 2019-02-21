@@ -52,6 +52,7 @@ import (
 	"github.com/trezor/blockbook/bchain/coins/vipstarcoin"
 	"github.com/trezor/blockbook/bchain/coins/zec"
 	"github.com/trezor/blockbook/common"
+	"github.com/trezor/blockbook/bchain/coins/xrc"
 )
 
 type blockChainFactory func(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error)
@@ -120,6 +121,8 @@ func init() {
 	BlockChainFactories["Omotenashicoin Testnet"] = omotenashicoin.NewOmotenashiCoinRPC
 	BlockChainFactories["BitZeny"] = bitzeny.NewBitZenyRPC
 	BlockChainFactories["Trezarcoin"] = trezarcoin.NewTrezarcoinRPC
+	BlockChainFactories["xRhodium"] = xrc.NewXRhodiumRPC
+	BlockChainFactories["xRhodium Testnet"] = xrc.NewXRhodiumRPC
 }
 
 // GetCoinNameFromConfig gets coin name and coin shortcut from config file

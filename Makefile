@@ -1,7 +1,8 @@
 BIN_IMAGE = blockbook-build
 DEB_IMAGE = blockbook-build-deb
 PACKAGER = $(shell id -u):$(shell id -g)
-BASE_IMAGE = $$(awk -F= '$$1=="ID" { print $$2 ;}' /etc/os-release):$$(awk -F= '$$1=="VERSION_ID" { print $$2 ;}' /etc/os-release | tr -d '"')
+#BASE_IMAGE = $$(awk -F= '$$1=="ID" { print $$2 ;}' /etc/os-release):$$(awk -F= '$$1=="VERSION_ID" { print $$2 ;}' /etc/os-release | tr -d '"')
+BASE_IMAGE = debian
 NO_CACHE = false
 TCMALLOC = 
 ARGS ?=
@@ -9,7 +10,8 @@ ARGS ?=
 TARGETS=$(subst .json,, $(shell ls configs/coins))
 
 .PHONY: build build-debug test deb
-
+baseimage:
+	$(BASE_IMAGE)
 build: .bin-image
 	docker run -t --rm -e PACKAGER=$(PACKAGER) -v "$(CURDIR):/src" -v "$(CURDIR)/build:/out" $(BIN_IMAGE) make build ARGS="$(ARGS)"
 

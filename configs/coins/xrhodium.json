@@ -1,0 +1,40 @@
+{
+  "coin": {
+      "name": "xRhodium",
+      "shortcut": "XRC",
+      "label": "xRhodium",
+      "alias": "xrhodium"
+  },
+  "ports": {
+    "backend_rpc": 19660,
+    "backend_message_queue": 45300,
+    "blockbook_internal": 50300,
+    "blockbook_public": 51300
+  },
+  "ipc": {
+    "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
+    "rpc_user": "rpc",
+    "rpc_pass": "rpc",
+    "rpc_timeout": 25,
+    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
+  },
+  "blockbook": {
+    "package_name": "blockbook-xrhodium",
+    "system_user": "blockbook-xrhodium",
+    "internal_binding_template": ":{{.Ports.BlockbookInternal}}",
+    "public_binding_template": ":{{.Ports.BlockbookPublic}}",
+    "explorer_url": "",
+    "additional_params": "-dbcache=1073741824",
+    "block_chain": {
+      "parse": true,
+      "mempool_workers": 8,
+      "mempool_sub_workers": 2,
+      "block_addresses_to_keep": 300,
+      "additional_params": {}
+    }
+  },
+  "meta": {
+    "package_maintainer": "baff5b",
+    "package_maintainer_email": "dvbr3@protonmail.com"
+  }
+}

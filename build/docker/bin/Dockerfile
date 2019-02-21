@@ -47,11 +47,19 @@ RUN go get github.com/gobuffalo/packr/...
 RUN \
     cleanup() { rm -rf $GOPATH/src/github.com/trezor ; } && \
     trap cleanup EXIT && \
-    mkdir -p $GOPATH/src/github.com/trezor && \
-    cd $GOPATH/src/github.com/trezor && \
-    git clone https://github.com/trezor/blockbook.git && \
+    mkdir -p $GOPATH/src/github.com/BitcoinRhodium && \
+    cd $GOPATH/src/github.com/BitcoinRhodium && \
+    git clone https://github.com/BitcoinRhodium/blockbook.git && \
     cd blockbook && \
     go mod download
+
+
+#    cd $GOPATH/src && \
+#        git clone https://github.com/BitcoinRhodium/blockbook.git && \
+#        cd blockbook && \
+#        git checkout brhodium && \
+#    dep ensure -vendor-only && \
+#    cp -r vendor /build/vendor
 
 ADD Makefile /build/Makefile
 
